@@ -1,0 +1,35 @@
+---
+title: "analisis_lab1"
+output:
+  word_document: default
+  pdf_document: default
+date: "2025-02-06"
+---
+# Analisis naive search v binary search
+
+## Se cargan los datos medidos
+
+```{r}
+library(readr)
+results <- read_csv("C:/Users/Sonyvideo1/Programas Personales/clase_analisis_algoritmos/lab1/results.csv")
+results
+```
+## Se calculan las medias de los algoritmos para los tamaños n 
+
+```{r}
+medias_por_n <- aggregate(. ~ n, data = results, FUN = mean)
+medias_por_n
+```
+## Se calculan las frecuencias
+
+```{r}
+plot(medias_por_n$n, medias_por_n$naive, type = "o", col = "blue", pch = 16,
+     xlab = "n", ylab = "Media", main = "Media de naive y binary por n",
+     ylim = range(c(medias_por_n$naive, medias_por_n$binary)))
+
+# Agregar binary al mismo gráfico
+lines(medias_por_n$n, medias_por_n$binary, type = "o", col = "red", pch = 16)
+
+# Agregar leyenda
+legend("topright", legend = c("naive", "binary"), col = c("blue", "red"), pch = 16, lty = 1)
+```
